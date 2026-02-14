@@ -1,0 +1,4 @@
+typer
+yfinance
+requests
+python-dotenv
