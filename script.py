@@ -24,11 +24,9 @@ def check_dip(symbol: str):
     else:
         print(f"{symbol} had no change over the last 5 days.")
 
+#scan for specific ticker
 @app.command()
-def scan(ticker: str = "NVDA"):
-    """
-    Scans a specific ticker for price changes.
-    """
+def scan(ticker: str = typer.Option(...,prompt="Search Ticker", help="Enter the stock ticker symbol.")):
     print(f"🚀 Starting scan for {ticker}...")
     check_dip(ticker)
 
