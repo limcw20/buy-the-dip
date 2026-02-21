@@ -25,11 +25,12 @@ def check_dip(symbol: str):
         print(f"{symbol} had no change over the last 5 days.")
 
 @app.command()
-def scan():
+def scan(ticker: str = "NVDA"):
     """
-    This docstring becomes the help text in the terminal!
+    Scans a specific ticker for price changes.
     """
-    print("Testing...")
+    print(f"🚀 Starting scan for {ticker}...")
+    check_dip(ticker)
 
 if __name__ == "__main__":
     app()
