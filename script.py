@@ -13,8 +13,8 @@ def check_stock_movement(symbol: str):
         typer.echo(f"No data found for {symbol}")
         return
 
-    price_now = hist['Close'].iloc[-1] # first closing price in df
-    price_start = hist['Close'].iloc[0] # last closing price in df
+    price_now = hist['Close'].iloc[-1] # latest price in df
+    price_start = hist['Close'].iloc[0] # oldest price in df
     
     percent_change = ((price_now - price_start) / price_start) * 100
     if percent_change < 0:
