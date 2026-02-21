@@ -3,7 +3,7 @@ import yfinance as yf
 
 app = typer.Typer()
 
-def check_dip(symbol: str):
+def check_stock_movement(symbol: str):
     ticker = yf.Ticker(symbol)
     # retrieve historical data for __ period and at every __ interval
     hist = ticker.history(period="5d", interval="15m") # returns a dataframe
@@ -28,7 +28,7 @@ def check_dip(symbol: str):
 @app.command()
 def scan(ticker: str = typer.Option(...,prompt="Search Ticker", help="Enter the stock ticker symbol.")):
     typer.echo(f"🚀 Starting scan for {ticker}...")
-    check_dip(ticker)
+    check_stock_movement(ticker)
 
 if __name__ == "__main__":
     app()
