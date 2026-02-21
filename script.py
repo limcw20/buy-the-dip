@@ -10,7 +10,7 @@ def check_dip(symbol: str):
     # print(hist)
     
     if hist.empty:
-        print(f"No data found for {symbol}")
+        typer.echo(f"No data found for {symbol}")
         return
 
     price_now = hist['Close'].iloc[-1] # first closing price in df
@@ -18,16 +18,16 @@ def check_dip(symbol: str):
     
     percent_change = ((price_now - price_start) / price_start) * 100
     if percent_change < 0:
-        print(f"{symbol} dipped {percent_change:.2f}% over the last 5 days.")
+        typer.echo(f"{symbol} dipped {percent_change:.2f}% over the last 5 days.")
     elif percent_change > 0:
-        print(f"{symbol} rose {percent_change:.2f}% over the last 5 days.")
+        typer.echo(f"{symbol} rose {percent_change:.2f}% over the last 5 days.")
     else:
-        print(f"{symbol} had no change over the last 5 days.")
+        typer.echo(f"{symbol} had no change over the last 5 days.")
 
 #scan for specific ticker
 @app.command()
 def scan(ticker: str = typer.Option(...,prompt="Search Ticker", help="Enter the stock ticker symbol.")):
-    print(f"🚀 Starting scan for {ticker}...")
+    typer.echo(f"🚀 Starting scan for {ticker}...")
     check_dip(ticker)
 
 if __name__ == "__main__":
