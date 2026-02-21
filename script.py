@@ -1,6 +1,28 @@
 import typer
+import yfinance as yf
 
 app = typer.Typer()
+
+def check_dip(symbol: str):
+    ticker = yf.Ticker(symbol)
+    # retrieve historical data for __ period and at every __ interval
+    hist = ticker.history(period="5d", interval="15m") # returns a dataframe
+    # print(hist)
+    
+    if hist.empty:
+        print(f"No data found for {symbol}")
+        return
+
+    price_now = hist['Close'].iloc[-1] # first closing price in df
+    price_start = hist['Close'].iloc[0] # last closing price in df
+    
+    percent_change = ((price_now - price_start) / price_start) * 100
+    if percent_change < 0:
+        print(f"{symbol} dipped {percent_change:.2f}% over the last 5 days.")
+    elif percent_change > 0:
+        print(f"{symbol} rose {percent_change:.2f}% over the last 5 days.")
+    else:
+        print(f"{symbol} had no change over the last 5 days.")
 
 @app.command()
 def scan():
