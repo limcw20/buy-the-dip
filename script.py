@@ -5,6 +5,8 @@ app = typer.Typer()
 
 def check_stock_movement(symbol: str):
     ticker = yf.Ticker(symbol)
+    # retrieve historical data for __ period
+    hist = ticker.history(period="5d") # returns a dataframe
     # print(hist)
     
     if hist.empty:
@@ -16,16 +18,16 @@ def check_stock_movement(symbol: str):
     
     percent_change = ((price_now - price_start) / price_start) * 100
     if percent_change < 0:
-        typer.echo(f"{symbol} dipped {percent_change:.2f}% over the last 5 days.")
+        typer.echo(f"{symbol.upper()} dipped {percent_change:.2f}% over the last 5 trading days.")
     elif percent_change > 0:
-        typer.echo(f"{symbol} rose {percent_change:.2f}% over the last 5 days.")
+        typer.echo(f"{symbol.upper()} rose {percent_change:.2f}% over the last 5 trading days.")
     else:
-        typer.echo(f"{symbol} had no change over the last 5 days.")
+        typer.echo(f"{symbol.upper()} had no change over the last 5 trading days.")
 
 #scan for specific ticker
 @app.command()
 def scan(ticker: str = typer.Option(...,prompt="Search Ticker", help="Enter the stock ticker symbol.")):
-    typer.echo(f"🚀 Starting scan for {ticker}...")
+    typer.echo(f"🚀 Starting scan for {ticker.upper()}...")
     check_stock_movement(ticker)
 
 if __name__ == "__main__":
