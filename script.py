@@ -5,8 +5,6 @@ app = typer.Typer()
 
 def check_stock_movement(symbol: str):
     ticker = yf.Ticker(symbol)
-    # retrieve historical data for __ period and at every __ interval
-    hist = ticker.history(period="5d", interval="15m") # returns a dataframe
     # print(hist)
     
     if hist.empty:
