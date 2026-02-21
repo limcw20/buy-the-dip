@@ -26,7 +26,9 @@ def check_stock_movement(symbol: str):
 
 #scan for specific ticker
 @app.command()
-def scan(ticker: str = typer.Option(...,prompt="Search Ticker", help="Enter the stock ticker symbol.")):
+def scan(ticker: str = typer.Argument(None, help="Enter the stock ticker symbol.")):
+    if not ticker:
+        ticker = typer.prompt("Which ticker do you want to scan?")
     typer.echo(f"🚀 Starting scan for {ticker.upper()}...")
     check_stock_movement(ticker)
 
